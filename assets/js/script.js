@@ -1,6 +1,6 @@
-var buttonE1 = document.querySelector("#save-task");
-console.log(buttonE1);
+var buttonEl = document.querySelector("#save-task");
+console.log(buttonEl);
 
-buttonE1.addEventListener("click", function(){
+buttonEl.addEventListener("click", function(){
     alert("Button clicked");
 });
