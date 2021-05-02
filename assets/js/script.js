@@ -1,6 +1,13 @@
+var taskSelector = "";
 var buttonEl = document.querySelector("#save-task");
-console.log(buttonEl);
+var listEl = document.querySelector("#list");
+var addItemEl = document.createElement("li");
 
-buttonEl.addEventListener("click", function(){
-    alert("Button clicked");
+buttonEl.addEventListener("click", function () {
+    var taskSelector = prompt("What is the task?");
+    addItemEl.textContent = taskSelector;
+    addItemEl.className = "task-item";
+    listEl.appendChild(addItemEl);
+    console.log = (taskSelector);
 });
+
