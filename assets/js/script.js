@@ -91,9 +91,17 @@ function taskButtonHandler(event){
   console.log(event.target);
 
   if (event.target.matches(".delete-btn")) {
-    console.log("you clicked a delete button!");
+    var taskId = event.target.getAttribute("data-task-id");
+    deleteTask(taskId);
+    console.log(taskId);
   }
 };
+
+function deleteTask(taskId) {
+  var taskSelected = document.querySelector(".task-item[data-task-id ='"+ taskId +"']");
+  taskSelected.remove();
+  console.log(taskSelected);
+}
 
 pageContentEl.addEventListener("click", taskButtonHandler);
 
