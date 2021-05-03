@@ -17,6 +17,14 @@ var taskFormHandler = function () {
 
   formEl.reset();
 
+  var isEdit = formEl.hasAttribute("data-task-id");
+
+  if (isEdit) {
+    var taskId = formEl.getAttribute("data-task-id");
+    completeEditTask(taskNameInput, taskTypeInput, taskId);
+  }
+
+  else {
   var taskDataObj = {
     name: taskNameInput,
     type: taskTypeInput
@@ -24,6 +32,7 @@ var taskFormHandler = function () {
 
   createTaskEl(taskDataObj);
 };
+}
 
 var createTaskEl = function (taskDataObj) {
 
@@ -91,7 +100,7 @@ function taskButtonHandler(event) {
   var targetEl = event.target;
   console.log(event.target);
 
-  if (targetEl.matches(".edit-btn")){
+  if (targetEl.matches(".edit-btn")) {
     var taskId = targetEl.getAttribute("data-task-id");
     editTask(taskId);
   }
@@ -103,9 +112,9 @@ function taskButtonHandler(event) {
 
 };
 
-function editTask(taskId){
+function editTask(taskId) {
   console.log("Editing task #" + taskId);
-  var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId +"']");
+  var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
 
   var taskName = taskSelected.querySelector("h3.task-name").textContent;
   console.log(taskName);
@@ -120,11 +129,21 @@ function editTask(taskId){
   formEl.setAttribute("data-task-id", taskId);
 };
 
+function completeEditTask(taskName, taskType, taskId){
+  var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+
+  taskSelected.querySelector("h3.task-name").textContent = taskName;
+  taskSelected.querySelector("span.task-type").textContent = taskType;
+
+  alert("Task Updated!");
+  formEl.removeAttibute("data-task-id");
+  document.querySelector("#save-task").textContent = "Add Task";
+}
+
 function deleteTask(taskId) {
   var taskSelected = document.querySelector(".task-item[data-task-id ='" + taskId + "']");
   taskSelected.remove();
-  console.log(taskSelected);
-}
+};
 
 pageContentEl.addEventListener("click", taskButtonHandler);
 
