@@ -136,7 +136,7 @@ function completeEditTask(taskName, taskType, taskId){
   taskSelected.querySelector("span.task-type").textContent = taskType;
 
   alert("Task Updated!");
-  formEl.removeAttibute("data-task-id");
+  formEl.removeAttribute("data-task-id");
   document.querySelector("#save-task").textContent = "Add Task";
 }
 
