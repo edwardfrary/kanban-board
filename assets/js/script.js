@@ -208,10 +208,36 @@ function loadTasks() {
   if (tasks === null) {
     tasks = [];
   }
-  console.log(tasks);
 
   for (i = 0; i < tasks.length; i++) {
-    console.log(tasks[i]);
+    var taskNameRet = tasks[i].name;
+    var taskTypeRet = tasks[i].type;
+    var taskStatusRet = tasks[i].status;
+    var taskId = tasks[i].id;
+    console.log(taskNameRet, taskTypeRet, taskStatusRet, taskId);
+    var listItemEl = document.createElement("li");
+    listItemEl.className = "task-item";
+
+    var taskInfoEl = document.createElement("div");
+    taskInfoEl.className = "task-info";
+    taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskNameRet + "</h3><span class='task-type'>" + taskTypeRet + "</span>";
+
+    var taskActionsEl = createTaskActions(taskStatusRet);
+
+    listItemEl.appendChild(taskInfoEl);
+    listItemEl.appendChild(taskActionsEl);
+    tasksToDoEl.appendChild(listItemEl);
+    if (taskStatusRet === "to do") {
+      tasksToDoEl.appendChild(listItemEl);
+    }
+
+    else if (taskStatusRet === "in progress") {
+      tasksInProgressEl.appendChild(listItemEl);
+    }
+
+    else if (taskStatusRet === "completed") {
+      tasksCompletedEl.appendChild(listItemEl);
+    }
   }
 };
 
