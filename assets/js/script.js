@@ -203,8 +203,7 @@ function saveTasks() {
 };
 
 function loadTasks() {
-  tasksRet = localStorage.getItem("tasks");
-  tasks = JSON.parse(tasksRet);
+  tasks = JSON.parse(localStorage.getItem("tasks"));
   if (tasks === null) {
     tasks = [];
   }
@@ -213,8 +212,8 @@ function loadTasks() {
     var taskNameRet = tasks[i].name;
     var taskTypeRet = tasks[i].type;
     var taskStatusRet = tasks[i].status;
-    var taskId = tasks[i].id;
-    console.log(taskNameRet, taskTypeRet, taskStatusRet, taskId);
+    var taskIdRet = tasks[i].id;
+    console.log(taskNameRet, taskTypeRet, taskStatusRet, taskIdRet);
     var listItemEl = document.createElement("li");
     listItemEl.className = "task-item";
 
@@ -222,20 +221,23 @@ function loadTasks() {
     taskInfoEl.className = "task-info";
     taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskNameRet + "</h3><span class='task-type'>" + taskTypeRet + "</span>";
 
-    var taskActionsEl = createTaskActions(taskStatusRet);
+    var taskActionsEl = createTaskActions(taskIdRet);
 
     listItemEl.appendChild(taskInfoEl);
     listItemEl.appendChild(taskActionsEl);
     tasksToDoEl.appendChild(listItemEl);
     if (taskStatusRet === "to do") {
+      listItemEl.setAttribute("data-task-id", 0);
       tasksToDoEl.appendChild(listItemEl);
     }
 
     else if (taskStatusRet === "in progress") {
+      listItemEl.setAttribute("data-task-id", 1);
       tasksInProgressEl.appendChild(listItemEl);
     }
 
     else if (taskStatusRet === "completed") {
+      listItemEl.setAttribute("data-task-id", 2);
       tasksCompletedEl.appendChild(listItemEl);
     }
   }
