@@ -221,7 +221,7 @@ function loadTasks() {
     taskInfoEl.className = "task-info";
     taskInfoEl.innerHTML = "<h3 class='task-name'>" + taskNameRet + "</h3><span class='task-type'>" + taskTypeRet + "</span>";
 
-    var taskActionsEl = createTaskActions(taskIdRet);
+    var taskActionsEl = createTaskActions(taskIdCounter);
 
     listItemEl.appendChild(taskInfoEl);
     listItemEl.appendChild(taskActionsEl);
@@ -240,6 +240,8 @@ function loadTasks() {
       listItemEl.setAttribute("data-task-id", 2);
       tasksCompletedEl.appendChild(listItemEl);
     }
+
+    taskIdCounter++;
   }
 };
 
