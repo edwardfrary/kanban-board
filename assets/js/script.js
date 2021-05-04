@@ -18,7 +18,7 @@ var taskFormHandler = function () {
   }
 
   formEl.reset();
-  
+
   var isEdit = formEl.hasAttribute("data-task-id");
 
   if (isEdit) {
@@ -27,14 +27,14 @@ var taskFormHandler = function () {
   }
 
   else {
-  var taskDataObj = {
-    name: taskNameInput,
-    type: taskTypeInput,
-    status: "to do"
-  };
+    var taskDataObj = {
+      name: taskNameInput,
+      type: taskTypeInput,
+      status: "to do"
+    };
 
-  createTaskEl(taskDataObj);
-};
+    createTaskEl(taskDataObj);
+  };
 }
 
 var createTaskEl = function (taskDataObj) {
@@ -133,13 +133,13 @@ function editTask(taskId) {
   formEl.setAttribute("data-task-id", taskId);
 };
 
-function completeEditTask(taskName, taskType, taskId){
+function completeEditTask(taskName, taskType, taskId) {
   var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
 
   taskSelected.querySelector("h3.task-name").textContent = taskName;
   taskSelected.querySelector("span.task-type").textContent = taskType;
 
-  for (i=0; i < tasks.length; i++) {
+  for (i = 0; i < tasks.length; i++) {
     if (tasks[i].id === parseInt(taskId)) {
       tasks[i].name = taskName;
       tasks[i].type = taskType;
@@ -154,28 +154,38 @@ function completeEditTask(taskName, taskType, taskId){
 function deleteTask(taskId) {
   var taskSelected = document.querySelector(".task-item[data-task-id ='" + taskId + "']");
   taskSelected.remove();
+
+  var updatedTaskArr = [];
+
+  for (i = 0; i < tasks.length; i++) {
+    if (tasks[i].id !== parseInt(taskId)) {
+      updatedTaskArr.push(tasks[i]);
+    }
+  }
+
+  tasks = updatedTaskArr;
 };
 
 function taskStatusChangeHandler(event) {
-  
+
   var taskId = event.target.getAttribute("data-task-id");
   var statusValue = event.target.value.toLowerCase();
   var taskSelected = document.querySelector(".task-item[data-task-id = '" + taskId + "']");
 
-  if (statusValue === "to do"){
+  if (statusValue === "to do") {
     tasksToDoEl.appendChild(taskSelected);
   }
 
-  else if (statusValue === "in progress"){
+  else if (statusValue === "in progress") {
     tasksInProgressEl.appendChild(taskSelected);
   }
 
-  else if (statusValue === "completed"){
+  else if (statusValue === "completed") {
     tasksCompletedEl.appendChild(taskSelected);
   }
 
-  for (i = 0; i< tasks.length; i++) {
-    if (tasks[i].id === parseInt(taskId)){
+  for (i = 0; i < tasks.length; i++) {
+    if (tasks[i].id === parseInt(taskId)) {
       tasks[i].status = statusValue;
     }
   }
